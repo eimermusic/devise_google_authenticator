@@ -7,11 +7,11 @@ module DeviseGoogleAuthenticator
         url = "https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl=#{data}"
         return image_tag(url, :alt => 'Google Authenticator QRCode')
       end
-      
+
       def username_from_email(email)
         (/^(.*)@/).match(email)[1]
       end
-      
+
     end
   end
 end
