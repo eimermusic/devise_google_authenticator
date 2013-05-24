@@ -1,5 +1,6 @@
 module DeviseGoogleAuthenticator::Patches
   # patch Sessions controller to check that the OTP is accurate
+  # TOTO: Make this a before_filter instead of aliasing the method
   module CheckGA
     extend ActiveSupport::Concern
     included do
@@ -11,9 +12,9 @@ module DeviseGoogleAuthenticator::Patches
 
         resource = warden.authenticate!(auth_options)
 
-        if resource.respond_to?(:get_qr) and resource.gauth_enabled.to_i != 0 #Therefore we can quiz for a QR
-          tmpid = resource.assign_tmp #assign a temporary key and fetch it
-          warden.logout #log the user out
+        if resource.mfa_enabled?
+          tmpid = resource.assign_mfa_tmp_token
+          warden.logout
 
           #we head back into the checkga controller with the temporary id
           respond_with resource, :location => { :controller => 'checkga', :action => 'show', :id => tmpid}

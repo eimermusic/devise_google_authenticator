@@ -15,8 +15,8 @@ class GoogleAuthenticatableTest < ActiveSupport::TestCase
 		assert_equal 0, User.find(1).gauth_enabled.to_i
 	end
 
-	test 'get_qr method works' do
-		assert_not_nil User.find(1).get_qr
+	test 'get_gauth_secret method works' do
+		assert_not_nil User.find(1).get_gauth_secret
 	end
 
 	test 'updating gauth_enabled to true' do
@@ -29,36 +29,36 @@ class GoogleAuthenticatableTest < ActiveSupport::TestCase
 		assert_equal 0, User.find(1).gauth_enabled.to_i
 	end
 
-	test 'updating the gauth_tmp key' do
-		User.find(1).assign_tmp
-		
-		assert_not_nil User.find(1).gauth_tmp
-		assert_not_nil User.find(1).gauth_tmp_datetime
-		
-		sleep(1)
-		
-		old_tmp = User.find(1).gauth_tmp
-		old_dt = User.find(1).gauth_tmp_datetime
-		
-		User.find(1).assign_tmp
+	test 'updating the mfa_tmp_token key' do
+		User.find(1).assign_mfa_tmp_token
 
-		assert_not_equal old_tmp, User.find(1).gauth_tmp
-		assert_not_equal old_dt, User.find(1).gauth_tmp_datetime
+		assert_not_nil User.find(1).mfa_tmp_token
+		assert_not_nil User.find(1).mfa_tmp_datetime
+
+		sleep(1)
+
+		old_tmp = User.find(1).mfa_tmp_token
+		old_dt = User.find(1).mfa_tmp_datetime
+
+		User.find(1).assign_mfa_tmp_token
+
+		assert_not_equal old_tmp, User.find(1).mfa_tmp_token
+		assert_not_equal old_dt, User.find(1).mfa_tmp_datetime
 	end
 
 	test 'testing class method for finding by tmp key' do
-		assert User.find_by_gauth_tmp('invalid').nil?
-		assert !User.find_by_gauth_tmp(User.find(1).gauth_tmp).nil?
+		assert User.find_by_mfa_tmp_token('invalid').nil?
+		assert !User.find_by_mfa_tmp_token(User.find(1).mfa_tmp_token).nil?
 	end
 
 	test 'testing token validation' do
-		assert !User.find(1).validate_token('1')
-		assert !User.find(1).validate_token(ROTP::TOTP.new(User.find(1).get_qr).at(Time.now))
+		assert !User.find(1).veryfy_gauth_totp('1')
+		assert !User.find(1).veryfy_gauth_totp(ROTP::TOTP.new(User.find(1).get_gauth_secret).at(Time.now))
 
-		User.find(1).assign_tmp
+		User.find(1).assign_mfa_tmp_token
 
-		assert !User.find(1).validate_token('1')
-		assert User.find(1).validate_token(ROTP::TOTP.new(User.find(1).get_qr).at(Time.now))
+		assert !User.find(1).veryfy_gauth_totp('1')
+		assert User.find(1).veryfy_gauth_totp(ROTP::TOTP.new(User.find(1).get_gauth_secret).at(Time.now))
 	end
 
 end

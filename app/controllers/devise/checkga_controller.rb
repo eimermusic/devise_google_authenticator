@@ -12,11 +12,11 @@ class Devise::CheckgaController < Devise::SessionsController
   end
 
   def update
-    resource = resource_class.find_by_gauth_tmp(params[resource_name]['tmpid'])
+    resource = resource_class.find_by_mfa_tmp_token(params[resource_name]['tmpid'])
 
     if not resource.nil?
 
-      if resource.validate_token(params[resource_name]['token'].to_i)
+      if resource.verify_mfa_token(params[resource_name]['token'])
         set_flash_message(:notice, :signed_in) if is_navigational_format?
         sign_in(resource_name,resource)
         respond_with resource, :location => after_sign_in_path_for(resource)

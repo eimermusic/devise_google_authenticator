@@ -25,7 +25,8 @@ Gem::Specification.new do |s|
   {
     'rails'  => ['>= 3.0.0', '<= 3.3.0'],
     'devise' => ['>= 2.0.0', '<= 2.9.0'],
-    'rotp'   => ['<= 1.3.2']
+    'rotp'   => ['<= 1.3.2'],
+    'yubikey'=> ['<= 1.3.1']
   }.each do |lib, version|
     s.add_runtime_dependency(lib, *version)
   end

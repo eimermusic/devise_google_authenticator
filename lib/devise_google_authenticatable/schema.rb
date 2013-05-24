@@ -18,20 +18,29 @@ module DeviseGoogleAuthenticator
     #   t.boolean :gauth_enabled
     # end
     #
+
+    def mfa_tmp_token
+        apply_devise_schema :mfa_tmp_token, String
+    end
+
+    def mfa_tmp_datetime
+        apply_devise_schema :mfa_tmp_datetime, Datetime
+    end
+
     def gauth_secret
-      apply_devise_schema :gauth_secret, String
+      apply_devise_schema :gauth_secret, String # How do you make this encrypted in ActiveRecord?
     end
 
     def gauth_enabled
       apply_devise_schema :gauth_enabled, Integer, {:default => 0}
     end
 
-    def gauth_tmp
-        apply_devise_schema :gauth_tmp, String
+    def yubikey_id
+        apply_devise_schema :yubikey_id, String # How do you make this encrypted in ActiveRecord?
     end
 
-    def gauth_tmp_datetime
-        apply_devise_schema :gauth_tmp_datetime, Datetime
+    def yubikey_enabled
+        apply_devise_schema :yubikey_enabled, Datetime
     end
 
   end

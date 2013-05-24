@@ -58,7 +58,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
 
   test 'successfull token authentication' do
     testuser = create_and_signin_gauth_user
-    fill_in 'user_token', :with => ROTP::TOTP.new(testuser.get_qr).at(Time.now)
+    fill_in 'user_token', :with => ROTP::TOTP.new(testuser.get_gauth_secret).at(Time.now)
     click_button 'Check Token'
 
     assert_equal root_path, current_path
@@ -72,7 +72,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
 
     sleep(5)
 
-    fill_in 'user_token', :with => ROTP::TOTP.new(testuser.get_qr).at(Time.now)
+    fill_in 'user_token', :with => ROTP::TOTP.new(testuser.get_gauth_secret).at(Time.now)
     click_button 'Check Token'
 
     User.ga_timeout = old_ga_timeout
@@ -85,7 +85,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
     User.ga_timedrift = 1
 
     testuser = create_and_signin_gauth_user
-    fill_in 'user_token', :with => ROTP::TOTP.new(testuser.get_qr).at(Time.now.in(60))
+    fill_in 'user_token', :with => ROTP::TOTP.new(testuser.get_gauth_secret).at(Time.now.in(60))
     click_button 'Check Token'
 
     User.ga_timedrift = old_ga_timedrift
