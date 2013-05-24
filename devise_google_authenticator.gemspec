@@ -17,17 +17,17 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.summary = "Devise Google Authenticator Extension"
 
-  s.required_ruby_version = '>= 1.8.6'
+  s.required_ruby_version = '>= 1.9.2'
   s.required_rubygems_version = '>= 1.3.6'
 
-  s.add_development_dependency('bundler', '~> 1.1.3')
-  
+  s.add_development_dependency('bundler', '~> 1.1')
+
   {
     'rails'  => ['>= 3.0.0', '<= 3.3.0'],
-    'devise' => ['>= 2.0.0', '<= 2.1.0'],
+    'devise' => ['>= 2.0.0', '<= 2.9.0'],
     'rotp'   => ['<= 1.3.2']
   }.each do |lib, version|
     s.add_runtime_dependency(lib, *version)
   end
-  
+
 end

@@ -1,4 +1,3 @@
-require 'active_record/connection_adapters/abstract/schema_definitions'
 require 'active_support/core_ext/integer'
 require 'active_support/core_ext/string'
 require 'active_support/ordered_hash'
@@ -23,7 +22,7 @@ end
 
 require 'devise_google_authenticatable/routes'
 require 'devise_google_authenticatable/rails'
-require 'devise_google_authenticatable/orm/active_record'
+# require 'devise_google_authenticatable/orm/active_record'
 require 'devise_google_authenticatable/controllers/helpers'
 ActionView::Base.send :include, DeviseGoogleAuthenticator::Controllers::Helpers
 

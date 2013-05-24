@@ -9,7 +9,7 @@ module Devise # :nodoc:
         base.extend ClassMethods
 
         base.class_eval do
-          before_validation :assign_auth_secret, :on => :create
+          before_validation :assign_auth_secret
           include InstanceMethods
         end
       end
@@ -18,7 +18,7 @@ module Devise # :nodoc:
         def get_qr
           self.gauth_secret
         end
-        
+
         def set_gauth_enabled(param)
           self.update_without_password(param)
         end
@@ -40,7 +40,7 @@ module Devise # :nodoc:
               valid_vals << ROTP::TOTP.new(self.get_qr).at(Time.now.ago(30*cc))
               valid_vals << ROTP::TOTP.new(self.get_qr).at(Time.now.in(30*cc))
             end
-            
+
             if valid_vals.include?(token.to_i)
               return true
             else
@@ -52,14 +52,14 @@ module Devise # :nodoc:
         private
 
         def assign_auth_secret
-          self.gauth_secret = ROTP::Base32.random_base32
+          self.gauth_secret = ROTP::Base32.random_base32 unless self.gauth_secret.present?
         end
 
       end
 
       module ClassMethods # :nodoc:
         def find_by_gauth_tmp(gauth_tmp)
-          find(:first, :conditions => {:gauth_tmp => gauth_tmp})
+          to_adapter.find_first(:gauth_tmp => gauth_tmp)
         end
         ::Devise::Models.config(self, :ga_timeout, :ga_timedrift)
       end

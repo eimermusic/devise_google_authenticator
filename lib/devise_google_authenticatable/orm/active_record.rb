@@ -1,3 +1,5 @@
+require 'active_record/connection_adapters/abstract/schema_definitions'
+
 module DeviseGoogleAuthenticator
   module Orm
     # This module contains handle schema (migrations):
