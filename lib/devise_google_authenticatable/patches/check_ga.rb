@@ -9,7 +9,7 @@ module DeviseGoogleAuthenticator::Patches
 
       define_method :create do
 
-        resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
+        resource = warden.authenticate!(auth_options)
 
         if resource.respond_to?(:get_qr) and resource.gauth_enabled.to_i != 0 #Therefore we can quiz for a QR
           tmpid = resource.assign_tmp #assign a temporary key and fetch it
