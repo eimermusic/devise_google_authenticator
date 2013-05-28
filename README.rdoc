@@ -10,7 +10,7 @@ This is a devise[https://github.com/plataformatec/devise] extension to allow you
 == Potential Problems
 * Possibly broken ActiveRecord support (tests still pass but you never know)
 * Apps using the original gem require migration that rename certain fields
-• Generators have not been touched... they almost certainly require updates
+* Generators have not been touched... they almost certainly require updates
 * No new tests (yet) for my added features
 
 == TODO
@@ -18,7 +18,12 @@ This is a devise[https://github.com/plataformatec/devise] extension to allow you
 * Tests
 * More Tests
 
+== Installation
+YubiKey authentication requires an API account at their authentication service. See the Yubikey[https://github.com/titanous/yubikey] Gem[https://github.com/titanous/yubikey] documentation for more details. THis gem will work fine without it and only complain once you actually try to use the Yubikey stuff.
 
+
+== Hot Tip
+Store your secrets in encrypted fields to have at least some level of protection for them. Working on a Mongoid-based project that would mean using something like mongoid-encrypted-fields[https://github.com/KoanHealth/mongoid-encrypted-fields]. ActiveRecord has plenty of options in this space but I haven't used any of them.
 
 
 

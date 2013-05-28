@@ -6,11 +6,11 @@ module DeviseGoogleAuthenticator::Patches
 
       define_method :override_create do
         resource = warden.authenticate!(auth_options)
-        if resource.mfa_enabled?
+        if devise_mapping.google_authenticatable? && resource.mfa_enabled?
           tmpid = resource.assign_mfa_tmp_token
           warden.logout
 
-          #we head back into the checkga controller with the temporary id
+          # we head back into the checkga controller with the temporary id
           respond_with resource, :location => { :controller => 'checkga', :action => 'show', :id => tmpid}
         end
       end
