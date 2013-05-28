@@ -26,7 +26,7 @@ module Devise # :nodoc:
           return false unless unverified_otp.present? && self.mfa_tmp_datetime.present? && (self.mfa_tmp_datetime > self.class.ga_timeout.ago)
           case
           when !!gauth_enabled && unverified_otp.match(/\A\d{6}\z/)
-            veryfy_gauth_totp(unverified_otp)
+            verify_gauth_totp(unverified_otp)
           when !!yubikey_enabled && unverified_otp.match(/\A\w{44}\z/)
             veryfy_yubikey_otp(unverified_otp)
           else
@@ -75,7 +75,7 @@ module Devise # :nodoc:
           self.mfa_tmp_token
         end
 
-        def veryfy_gauth_totp(token)
+        def verify_gauth_totp(token)
           valid_vals = []
           valid_vals << gauth_totp.at(Time.now)
           (1..self.class.ga_timedrift).each do |cc|

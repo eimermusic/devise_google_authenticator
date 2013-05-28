@@ -1,31 +1,20 @@
 module DeviseGoogleAuthenticator::Patches
   # patch Sessions controller to check that the OTP is accurate
-  # TOTO: Make this a before_filter instead of aliasing the method
   module CheckGA
     extend ActiveSupport::Concern
     included do
-    # here the patch
 
-      alias_method :create_original, :create
-
-      define_method :create do
-
+      define_method :override_create do
         resource = warden.authenticate!(auth_options)
-
         if resource.mfa_enabled?
           tmpid = resource.assign_mfa_tmp_token
           warden.logout
 
           #we head back into the checkga controller with the temporary id
           respond_with resource, :location => { :controller => 'checkga', :action => 'show', :id => tmpid}
-
-        else #It's not using, or not enabled for Google 2FA - carry on, nothing to see here.
-          set_flash_message(:notice, :signed_in) if is_navigational_format?
-          sign_in(resource_name, resource)
-          respond_with resource, :location => after_sign_in_path_for(resource)
         end
-
       end
+      before_filter :override_create, only: :create
 
     end
   end

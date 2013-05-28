@@ -1,3 +1,29 @@
+= Devise One Time Password Authenticator
+
+This is a devise[https://github.com/plataformatec/devise] extension to allow your Rails app to add a second authentication step. The second step authenticates using the OATH standard (Google Authenticator[http://code.google.com/p/google-authenticator/]) Time-based One Time Passwords (TOTP) or YubiKey[http://www.yubico.com] hardware code generator.
+
+== The Positive Changes
+* Support for Mongoid (3) (tests don't run Mongoid backend)
+* Added Yubikey OTP support
+* Users can have Google (OATH TOTP) and Yubikey active at the same time and login using codes of either type
+
+== Potential Problems
+* Possibly broken ActiveRecord support (tests still pass but you never know)
+* Apps using the original gem require migration that rename certain fields
+• Generators have not been touched... they almost certainly require updates
+* No new tests (yet) for my added features
+
+== TODO
+* Add SMS (mobile phone text message) as a third option for the "2-Step"
+* Tests
+* More Tests
+
+
+
+
+
+Original Readme follows...
+
 = Devise Google Authenticator
 
 This is a devise[https://github.com/plataformatec/devise] extension to allow your app to utilise Google Authenticator[http://code.google.com/p/google-authenticator/] for Time-based One Time Passwords (TOTP).

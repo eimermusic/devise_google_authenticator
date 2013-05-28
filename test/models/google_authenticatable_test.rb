@@ -52,13 +52,13 @@ class GoogleAuthenticatableTest < ActiveSupport::TestCase
 	end
 
 	test 'testing token validation' do
-		assert !User.find(1).veryfy_gauth_totp('1')
-		assert !User.find(1).veryfy_gauth_totp(ROTP::TOTP.new(User.find(1).get_gauth_secret).at(Time.now))
+		assert !User.find(1).verify_gauth_totp('1')
+		assert !User.find(1).verify_gauth_totp(ROTP::TOTP.new(User.find(1).get_gauth_secret).at(Time.now))
 
 		User.find(1).assign_mfa_tmp_token
 
-		assert !User.find(1).veryfy_gauth_totp('1')
-		assert User.find(1).veryfy_gauth_totp(ROTP::TOTP.new(User.find(1).get_gauth_secret).at(Time.now))
+		assert !User.find(1).verify_gauth_totp('1')
+		assert User.find(1).verify_gauth_totp(ROTP::TOTP.new(User.find(1).get_gauth_secret).at(Time.now))
 	end
 
 end
