@@ -2,6 +2,17 @@
 
 This is a devise[https://github.com/plataformatec/devise] extension to allow your Rails app to add a second authentication step. The second step authenticates using the OATH standard (Google Authenticator[http://code.google.com/p/google-authenticator/]) Time-based One Time Passwords (TOTP) or YubiKey[http://www.yubico.com] hardware code generator.
 
+== A Quick Warning Regarding The Google Authenticator iOS App
+
+=== In short: Don't use it.
+Get one of the other hundred compatible apps. (HDE OTP works great for me but it is a bit too geeky for the masses perhaps.)
+
+=== Why not?
+Google has not updated the app in ages. Worst thing is that it stores your authenticator data in a way which is not backed up. It does not survive a restore or major OS update either.
+
+If I am to be picky, it is not exactly iPhone 5 or iOS 7 friendly either.
+
+
 == The Positive Changes
 * Support for Mongoid (3) (tests don't run Mongoid backend)
 * Added Yubikey OTP support
