@@ -34,6 +34,11 @@ module Devise # :nodoc:
           end
         end
 
+        # def assign_tmp
+        #   self.update_attributes(:gauth_tmp => ROTP::Base32.random_base32(32), :gauth_tmp_datetime => DateTime.now)
+        #   self.gauth_tmp
+        # end
+
 
         # Yubikey methods
         def trim_yubikey_id
@@ -89,7 +94,7 @@ module Devise # :nodoc:
         private
 
         def assign_auth_secret
-          self.gauth_secret = ROTP::Base32.random_base32 unless self.gauth_secret.present?
+          self.gauth_secret = ROTP::Base32.random_base32(64) unless self.gauth_secret.present?
         end
 
         def username_from_email(email)
