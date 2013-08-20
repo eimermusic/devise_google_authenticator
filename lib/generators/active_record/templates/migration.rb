@@ -2,9 +2,9 @@ class DeviseOtpAuthenticatorAddTo<%= table_name.camelize %> < ActiveRecord::Migr
   def self.up
     change_table :<%= table_name %> do |t|
       t.string  :gauth_secret
-      t.string  :gauth_enabled, :default => "f"
+      t.string  :gauth_enabled, :default => 0
       t.string  :yubikey_id
-      t.string  :yubikey_enabled, :default => "f"
+      t.string  :yubikey_enabled, :default => 0
       t.string  :mfa_tmp_token
       t.datetime  :mfa_tmp_datetime
     end

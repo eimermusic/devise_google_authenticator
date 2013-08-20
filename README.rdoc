@@ -21,8 +21,9 @@ If I am to be picky, it is not exactly iPhone 5 or iOS 7 friendly either.
 * Users can have Google (OATH TOTP) and Yubikey active at the same time and login using codes of either type
 * I think that deserves a repeat: Users can have Google (OATH TOTP) and Yubikey active at the same time and login using codes of either type
 
-== Potential Problems
-* Possibly broken ActiveRecord support (tests still pass but you never know)
+== Problems
+* Tests fail all over the place
+* Possibly broken ActiveRecord support
 * Apps using the original gem require migration that rename certain fields
 * Generators have not been touched... they almost certainly require updates
 * No new tests (yet) for my added features

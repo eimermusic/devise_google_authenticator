@@ -40,7 +40,7 @@ module DeviseOtpAuthenticator
     end
 
     def yubikey_enabled
-        apply_devise_schema :yubikey_enabled, Datetime
+        apply_devise_schema :yubikey_enabled, Integer, {:default => 0}
     end
 
   end
