@@ -1,4 +1,4 @@
-module DeviseGoogleAuthenticator
+module DeviseOtpAuthenticator
   module Controllers # :nodoc:
     module Helpers # :nodoc:
       def google_authenticator_qrcode(user)

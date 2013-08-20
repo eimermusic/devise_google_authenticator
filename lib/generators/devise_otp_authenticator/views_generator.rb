@@ -1,6 +1,6 @@
 require 'generators/devise/views_generator'
 
-module DeviseGoogleAuthenticator
+module DeviseOtpAuthenticator
   module Generators
     class ViewsGenerator < Rails::Generators::Base
       desc 'Copies all Devise Google Authenticator views to your application.'

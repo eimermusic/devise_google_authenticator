@@ -12,7 +12,7 @@ end
 PARENT_MODEL_CLASS = DEVISE_ORM == :active_record ? ActiveRecord::Base : Object
 
 require "devise"
-require "devise_google_authenticator"
+require "devise_otp_authenticator"
 
 module RailsApp
   class Application < Rails::Application

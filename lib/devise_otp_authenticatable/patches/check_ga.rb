@@ -1,4 +1,4 @@
-module DeviseGoogleAuthenticator::Patches
+module DeviseOtpAuthenticator::Patches
   # patch Sessions controller to check that the OTP is accurate
   module CheckGA
     extend ActiveSupport::Concern
@@ -6,7 +6,7 @@ module DeviseGoogleAuthenticator::Patches
 
       define_method :override_create do
         resource = warden.authenticate!(auth_options)
-        if devise_mapping.google_authenticatable? && resource.mfa_enabled?
+        if devise_mapping.otp_authenticatable? && resource.mfa_enabled?
           tmpid = resource.assign_mfa_tmp_token
           warden.logout
 

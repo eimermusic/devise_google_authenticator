@@ -17,7 +17,7 @@ class ModelsTest < ActiveSupport::TestCase
   end
 
   test 'should include Devise modules' do
-    assert_include_modules User, :database_authenticatable, :registerable, :validatable, :rememberable, :trackable, :google_authenticatable, :recoverable
+    assert_include_modules User, :database_authenticatable, :registerable, :validatable, :rememberable, :trackable, :otp_authenticatable, :recoverable
   end
 
   test 'should have a default value for ga_timeout' do
@@ -46,7 +46,7 @@ class ModelsTest < ActiveSupport::TestCase
     User.ga_timedrift = old_ga_timedrift
   end
 
-  test 'google_authenticatable attributes' do
+  test 'otp_authenticatable attributes' do
     assert_equal 'f', User.new.gauth_enabled
     assert_nil User.new.mfa_tmp_token
     assert_nil User.new.mfa_tmp_datetime

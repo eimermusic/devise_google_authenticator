@@ -1,4 +1,4 @@
-module DeviseGoogleAuthenticator
+module DeviseOtpAuthenticator
   # add schema helper for migrations
   module Schema
     # Add gauth_secret columns in the resource's database tables

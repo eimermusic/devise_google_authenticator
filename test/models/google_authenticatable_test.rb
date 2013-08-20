@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'model_tests_helper'
 
-class GoogleAuthenticatableTest < ActiveSupport::TestCase
+class OtpAuthenticatableTest < ActiveSupport::TestCase
 
 	def setup
 		new_user

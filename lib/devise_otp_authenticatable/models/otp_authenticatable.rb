@@ -4,7 +4,7 @@ require 'yubikey'
 module Devise # :nodoc:
   module Models # :nodoc:
 
-    module GoogleAuthenticatable
+    module OtpAuthenticatable
 
       def self.included(base) # :nodoc:
         base.extend ClassMethods

@@ -1,6 +1,6 @@
 require 'active_record/connection_adapters/abstract/schema_definitions'
 
-module DeviseGoogleAuthenticator
+module DeviseOtpAuthenticator
   module Orm
     # This module contains handle schema (migrations):
     #
@@ -12,12 +12,12 @@ module DeviseGoogleAuthenticator
 
     module ActiveRecord
       module Schema
-        include DeviseGoogleAuthenticator::Schema
+        include DeviseOtpAuthenticator::Schema
       end
     end
 
   end
 end
 
-ActiveRecord::ConnectionAdapters::Table.send :include, DeviseGoogleAuthenticator::Orm::ActiveRecord::Schema
-ActiveRecord::ConnectionAdapters::TableDefinition.send :include, DeviseGoogleAuthenticator::Orm::ActiveRecord::Schema
+ActiveRecord::ConnectionAdapters::Table.send :include, DeviseOtpAuthenticator::Orm::ActiveRecord::Schema
+ActiveRecord::ConnectionAdapters::TableDefinition.send :include, DeviseOtpAuthenticator::Orm::ActiveRecord::Schema

@@ -1,4 +1,4 @@
-module DeviseGoogleAuthenticator::Patches
+module DeviseOtpAuthenticator::Patches
   # patch Registrations controller to display the QR code
   module DisplayQR
     extend ActiveSupport::Concern

@@ -1,7 +1,7 @@
-module DeviseGoogleAuthenticator
+module DeviseOtpAuthenticator
   class Engine < ::Rails::Engine # :nodoc:
     ActionDispatch::Callbacks.to_prepare do
-      DeviseGoogleAuthenticator::Patches.apply
+      DeviseOtpAuthenticator::Patches.apply
     end
 
   end

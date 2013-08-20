@@ -2,7 +2,7 @@
 $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 
 Gem::Specification.new do |s|
-  s.name = "devise_google_authenticator"
+  s.name = "devise_otp_authenticator"
   s.version = "0.3.6"
   s.authors = ["Christian Frichot", "Martin Westin"]
   s.date = "2013-08-13"
@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = Dir["{app,config,lib}/**/*"] + %w[LICENSE.txt README.rdoc]
-  s.homepage = "http://github.com/AsteriskLabs/devise_google_authenticator"
+  s.homepage = "http://github.com/eimermusic/devise_otp_authenticator"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.summary = "One Time Password Authenticator Extension for Devise"

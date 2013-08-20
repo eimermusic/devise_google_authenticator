@@ -1,7 +1,7 @@
-module DeviseGoogleAuthenticator
+module DeviseOtpAuthenticator
   module Patches
-    autoload :DisplayQR, 'devise_google_authenticatable/patches/display_qr'
-    autoload :CheckGA, 'devise_google_authenticatable/patches/check_ga'
+    autoload :DisplayQR, 'devise_otp_authenticatable/patches/display_qr'
+    autoload :CheckGA, 'devise_otp_authenticatable/patches/check_ga'
 
     class << self
       def apply
