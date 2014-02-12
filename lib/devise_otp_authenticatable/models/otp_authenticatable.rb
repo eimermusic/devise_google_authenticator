@@ -72,7 +72,7 @@ module Devise # :nodoc:
         end
 
         def gauth_totp_uri
-          gauth_totp.provisioning_uri("#{username_from_email(email)}@#{Rails.application.class.parent_name}")
+          gauth_totp.provisioning_uri("#{Rails.application.class.parent_name}:#{email}")
         end
 
         def assign_mfa_tmp_token
@@ -95,10 +95,6 @@ module Devise # :nodoc:
 
         def assign_auth_secret
           self.gauth_secret = ROTP::Base32.random_base32(64) unless self.gauth_secret.present?
-        end
-
-        def username_from_email(email)
-          (/^(.*)@/).match(email)[1]
         end
       end
 
