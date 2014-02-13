@@ -4,17 +4,16 @@ class Devise::DisplayqrController < DeviseController
   include Devise::Controllers::Helpers
 
   def show
-    if not resource.nil? and not resource.gauth_secret.nil?
-      render :show
-    else
+    if resource.nil? || resource.gauth_secret.nil?
       sign_in scope, resource, :bypass => true
       redirect_to stored_location_for(scope) || :root
+    else
+      render :show
     end
   end
 
   def update
-    tmp = params[resource_name]
-    if resource.set_gauth_enabled(params[resource_name])
+    if resource.set_gauth_enabled(resource_params)
       set_flash_message :notice, "Status Updated!"
       sign_in scope, resource, :bypass => true
       redirect_to stored_location_for(scope) || :root
@@ -31,5 +30,14 @@ class Devise::DisplayqrController < DeviseController
   def authenticate_scope!
     send(:"authenticate_#{resource_name}!")
     self.resource = send("current_#{resource_name}")
+  end
+
+  def resource_params
+    return params.require(resource_name.to_sym).permit(:gauth_enabled) if strong_parameters_enabled?
+    params
+  end
+
+  def strong_parameters_enabled?
+    defined?(ActionController::StrongParameters)
   end
 end

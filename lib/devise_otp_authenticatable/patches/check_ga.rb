@@ -6,7 +6,7 @@ module DeviseOtpAuthenticator::Patches
 
       define_method :override_create do
         resource = warden.authenticate!(auth_options)
-        if devise_mapping.otp_authenticatable? && resource.mfa_enabled?
+        if devise_mapping.otp_authenticatable? && resource.mfa_enabled? && resource.require_token?(cookies.signed[:otp_memory])
           tmpid = resource.assign_mfa_tmp_token
           warden.logout
 

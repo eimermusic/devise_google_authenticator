@@ -5,11 +5,14 @@ require 'active_support/concern'
 require 'devise'
 
 module Devise # :nodoc:
-	mattr_accessor :ga_timeout
-	@@ga_timeout = 3.minutes
+  mattr_accessor :ga_timeout
+  @@ga_timeout = 3.minutes
 
-	mattr_accessor :ga_timedrift
-	@@ga_timedrift = 3
+  mattr_accessor :ga_timedrift
+  @@ga_timedrift = 3
+
+  mattr_accessor :ga_remembertime
+  @@ga_remembertime = 1.month
 end
 
 # a security extension for devise

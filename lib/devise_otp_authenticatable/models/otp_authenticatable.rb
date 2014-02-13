@@ -76,8 +76,8 @@ module Devise # :nodoc:
           self.gauth_secret
         end
 
-        def set_gauth_enabled(param)
-          self.update_without_password(param)
+        def set_gauth_enabled(params)
+          self.update_without_password(params)
         end
 
         def gauth_totp
@@ -104,6 +104,19 @@ module Devise # :nodoc:
           valid_vals.include?(token.to_i)
         end
 
+        def require_token?(cookie)
+          if self.class.ga_remembertime.nil? || cookie.blank?
+            return true
+          end
+          array = cookie.to_s.split ','
+          if array.count != 2
+            return true
+          end
+          last_logged_in_email = array[0]
+          last_logged_in_time = array[1].to_i
+          return last_logged_in_email != self.email || (Time.now.to_i - last_logged_in_time) > self.class.ga_remembertime.to_i
+        end
+
         private
 
         def is_same_old_yubikey?
@@ -123,7 +136,7 @@ module Devise # :nodoc:
         def find_by_mfa_tmp_token(mfa_tmp_token)
           to_adapter.find_first(:mfa_tmp_token => mfa_tmp_token)
         end
-        ::Devise::Models.config(self, :ga_timeout, :ga_timedrift)
+        ::Devise::Models.config(self, :ga_timeout, :ga_timedrift, :ga_remembertime)
       end
     end
   end
