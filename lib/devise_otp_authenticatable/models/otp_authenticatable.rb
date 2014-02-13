@@ -11,7 +11,9 @@ module Devise # :nodoc:
 
         base.class_eval do
           before_validation :assign_auth_secret
-          before_validation :trim_yubikey_id
+
+          attr_accessor :new_yubikey_id
+          validate :new_yubikey_verification
           include InstanceMethods
         end
       end
@@ -41,8 +43,19 @@ module Devise # :nodoc:
 
 
         # Yubikey methods
-        def trim_yubikey_id
-          self.yubikey_id = yubikey_id[0..11] if yubikey_id.present?
+        def new_yubikey_verification
+          return if is_same_old_yubikey? || new_yubikey_id.nil?
+
+          if new_yubikey_id.match(/\A\w{44}\z/)
+            if Yubikey::OTP::Verify.new(:otp => new_yubikey_id).valid?
+              self.yubikey_id = new_yubikey_id[0..11]
+            end
+          else
+            errors.add :yubikey_id, I18n.t(:yubikey_id_is_invalid)
+          end
+
+        rescue Yubikey::OTP::InvalidOTPError
+          errors.add :yubikey_id, I18n.t(:yubikey_id_is_invalid)
         end
 
         def veryfy_yubikey_otp(yubikey_otp)
@@ -93,8 +106,16 @@ module Devise # :nodoc:
 
         private
 
+        def is_same_old_yubikey?
+          self.yubikey_id == new_yubikey_id.to_s[0..11]
+        end
+
         def assign_auth_secret
-          self.gauth_secret = ROTP::Base32.random_base32(64) unless self.gauth_secret.present?
+          self.gauth_secret = ROTP::Base32.random_base32(secret_size) unless self.gauth_secret.present?
+        end
+
+        def secret_size
+          32
         end
       end
 

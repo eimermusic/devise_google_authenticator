@@ -10,3 +10,6 @@ en:
     checkga:
       user:
         signed_in: "Signed in successfully from token."
+        invalid_token: "You entered an invalid code."
+        session_expired: "Your session has expired."
+  yubikey_id_is_invalid: "Your Yubikey could not be identified."
