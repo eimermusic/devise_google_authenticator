@@ -32,7 +32,7 @@ class Devise::CheckgaController < Devise::SessionsController
         end
       else
         set_flash_message(:error, :invalid_token) if is_flashing_format?
-        redirect_to :root
+        render :show
       end
 
     else
