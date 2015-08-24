@@ -94,14 +94,7 @@ module Devise # :nodoc:
         end
 
         def verify_gauth_totp(token)
-          valid_vals = []
-          valid_vals << gauth_totp.at(Time.now)
-          (1..self.class.ga_timedrift).each do |cc|
-            valid_vals << gauth_totp.at(Time.now.ago(30*cc))
-            valid_vals << gauth_totp.at(Time.now.in(30*cc))
-          end
-
-          valid_vals.include?(token.to_i)
+          gauth_totp.verify_with_drift(token, self.class.ga_timedrift)
         end
 
         def require_token?(cookie)

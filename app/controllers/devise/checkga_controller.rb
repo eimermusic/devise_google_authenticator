@@ -20,8 +20,9 @@ class Devise::CheckgaController < Devise::SessionsController
 
       if resource.verify_mfa_token(params[resource_name]['otp_token'])
         set_flash_message(:notice, :signed_in) if is_flashing_format?
+        after_checkga_path = session[:after_checkga_path]
         sign_in(resource_name,resource)
-        respond_with resource, :location => after_sign_in_path_for(resource)
+        respond_with resource, :location => after_checkga_path || after_sign_in_path_for(resource)
 
         if params[resource_name]['remember_otp_token'] == '1' && !resource.class.ga_remembertime.nil?
           cookies.signed[:otp_memory] = {

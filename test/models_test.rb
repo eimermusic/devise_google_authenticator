@@ -25,7 +25,7 @@ class ModelsTest < ActiveSupport::TestCase
   end
 
   test 'should have a default value for ga_timedrift' do
-    assert_equal 3, User.ga_timedrift
+    assert_equal 90.seconds, User.ga_timedrift
   end
 
   test 'should set a new value for ga_timeout' do

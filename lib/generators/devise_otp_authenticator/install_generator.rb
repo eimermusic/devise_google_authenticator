@@ -13,7 +13,7 @@ module DeviseOtpAuthenticator
         "  # How long should the user have to enter their token. To change the default, uncomment and change the below:\n" +
         "  # config.ga_timeout = 3.minutes\n\n" +
         "  # Change time drift settings for valid token values. To change the default, uncomment and change the below:\n" +
-        "  # config.ga_timedrift = 3\n\n" +
+        "  # config.ga_timedrift = 90.seconds\n\n" +
         "  # Change setting to how long to remember device before requiring another token. Change to nil to turn feature off.\n" +
         "  # To change the default, uncomment and change the below:\n" +
         "  # config.ga_remembertime = 1.month\n\n" +

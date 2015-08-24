@@ -9,7 +9,7 @@ module Devise # :nodoc:
   @@ga_timeout = 3.minutes
 
   mattr_accessor :ga_timedrift
-  @@ga_timedrift = 3
+  @@ga_timedrift = 90.seconds
 
   mattr_accessor :ga_remembertime
   @@ga_remembertime = 1.month

@@ -8,7 +8,12 @@ module DeviseOtpAuthenticator::Patches
         resource = warden.authenticate!(auth_options)
         if devise_mapping.otp_authenticatable? && resource.mfa_enabled? && resource.require_token?(cookies.signed[:otp_memory])
           tmpid = resource.assign_mfa_tmp_token
+
+          after_checkga_path = after_sign_in_path_for(resource)
+
           warden.logout
+
+          session[:after_checkga_path] = after_checkga_path
 
           # we head back into the checkga controller with the temporary id
           respond_with resource, :location => { :controller => 'checkga', :action => 'show', :id => tmpid}
